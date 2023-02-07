@@ -1,10 +1,10 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id 'kotlin-kapt'
     id 'androidx.navigation.safeargs.kotlin'
     id 'dagger.hilt.android.plugin'
     id 'org.jetbrains.kotlin.plugin.parcelize'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -20,7 +20,8 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField "String", "BASE_URL", "\"https://pokeapi.co\""
-        buildConfigField "String", "BASE_URL_IMG", "\"https://raw.githubusercontent.com\""
+        buildConfigField "String", "BASE_URL_IMG", "\"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon\""
+        buildConfigField "String", "DATA_BASE_NAME", "\"pokedex_db\""
     }
 
     buildTypes {
@@ -57,10 +58,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
 
 
-    /* Glide */
-    implementation 'com.github.bumptech.glide:glide:4.12.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
-
     /*RxJava*/
     implementation 'io.reactivex.rxjava2:rxjava:2.2.17'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
@@ -68,12 +65,11 @@ dependencies {
     implementation 'com.jakewharton.rxbinding2:rxbinding-kotlin:2.0.0'
 
     /*Retrofit*/
-    implementation(platform("com.squareup.okhttp3:okhttp-bom:4.9.3"))
-    implementation("com.squareup.okhttp3:okhttp")
-    implementation("com.squareup.okhttp3:logging-interceptor")
+    implementation "com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2"
     implementation "com.squareup.retrofit2:retrofit:2.9.0"
     implementation "com.squareup.retrofit2:converter-gson:2.9.0"
     implementation "com.squareup.retrofit2:adapter-rxjava2:2.9.0"
+
 
     /*Gson*/
     implementation 'com.google.code.gson:gson:2.9.0'
@@ -81,6 +77,11 @@ dependencies {
     // Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"
     implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"
+
+    // Room
+    implementation "androidx.room:room-runtime:2.4.3"
+    implementation "androidx.room:room-ktx:2.4.3"
+    kapt "androidx.room:room-compiler:2.4.3"
 
     //Hilt
     implementation "com.google.dagger:hilt-android:$dagger_hilt_version"
@@ -90,6 +91,16 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutines"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutines"
 
-    implementation "com.github.bumptech.glide:glide:$glide_version"
-    annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
+    // Timber
+    implementation 'com.jakewharton.timber:timber:4.7.1'
+
+    //Coil
+    implementation("io.coil-kt:coil:2.2.2")
+
+    //Palette
+    implementation 'androidx.palette:palette:1.0.0'
+
+    implementation 'org.apache.commons:commons-lang3:3.6'
+
+
 }

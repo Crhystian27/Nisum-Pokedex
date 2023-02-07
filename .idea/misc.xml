@@ -3,7 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/cristian.soto/.gradle/caches/transforms-3/6afc7085399b865dd39deff494ecc2b4/transformed/coil-base-2.2.2/res/drawable/ic_100tb.xml" value="0.1065" />
         <entry key="..\:/Users/cristian.soto/AndroidStudioProjects/BasicPokedex/app/src/main/res/layout/activity_main.xml" value="0.178125" />
+        <entry key="..\:/Users/cristian.soto/AndroidStudioProjects/BasicPokedex/app/src/main/res/layout/activity_pokedex.xml" value="0.1" />
+        <entry key="..\:/Users/cristian.soto/AndroidStudioProjects/BasicPokedex/app/src/main/res/layout/fragment_pokemon.xml" value="0.1" />
+        <entry key="..\:/Users/cristian.soto/AndroidStudioProjects/BasicPokedex/app/src/main/res/layout/fragment_pokemon_list.xml" value="0.22" />
+        <entry key="..\:/Users/cristian.soto/AndroidStudioProjects/BasicPokedex/app/src/main/res/layout/item_pokemon.xml" value="0.33" />
       </map>
     </option>
   </component>

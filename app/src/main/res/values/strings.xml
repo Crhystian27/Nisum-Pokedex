@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">BasicPokedex</string>
+    <string name="hint_search">Buscar</string>
+    <string name="back_pressed">Pulse de nuevo el botón atrás para salir</string>
 </resources>
