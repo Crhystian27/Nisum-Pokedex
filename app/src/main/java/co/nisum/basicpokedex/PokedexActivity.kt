@@ -10,7 +10,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class PokedexActivity : BaseActivity<ActivityPokedexBinding>() {
 
-
     override fun inflateView(inflater: LayoutInflater) =
         ActivityPokedexBinding.inflate(inflater)
 

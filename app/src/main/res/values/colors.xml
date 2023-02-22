@@ -15,24 +15,25 @@
     <color name="white">#FFFFFFFF</color>
 
 
-    <color name="TypeNormal">#FFA8A77A</color>
-    <color name="TypeFire">#FFEE8130</color>
-    <color name="TypeWater">#FF6390F0</color>
-    <color name="TypeElectric">#FFF7D02C</color>
-    <color name="TypeGrass">#FF7AC74C</color>
-    <color name="TypeIce">#FF96D9D6</color>
-    <color name="TypeFighting">#FFC22E28</color>
-    <color name="TypePoison">#FFA33EA1</color>
-    <color name="TypeGround">#FFE2BF65</color>
-    <color name="TypeFlying">#FFA98FF3</color>
-    <color name="TypePsychic">#FFF95587</color>
-    <color name="TypeBug">#FFA6B91A</color>
-    <color name="TypeRock">#FFB6A136</color>
-    <color name="TypeGhost">#FF735797</color>
-    <color name="TypeDragon">#FF6F35FC</color>
-    <color name="TypeDark">#FF705746</color>
-    <color name="TypeSteel">#FFB7B7CE</color>
-    <color name="TypeFairy">#FFD685AD</color>
-
+    <color name="typeNormal">#A8A77A</color>
+    <color name="typeFire">#EE8130</color>
+    <color name="typeWater">#6390F0</color>
+    <color name="typeElectric">#F7D02C</color>
+    <color name="typeGrass">#7AC74C</color>
+    <color name="typeIce">#96D9D6</color>
+    <color name="typeFighting">#C22E28</color>
+    <color name="typePoison">#A33EA1</color>
+    <color name="typeGround">#E2BF65</color>
+    <color name="typeFlying">#A98FF3</color>
+    <color name="typePsychic">#F95587</color>
+    <color name="typeBug">#A6B91A</color>
+    <color name="typeRock">#B6A136</color>
+    <color name="typeGhost">#735797</color>
+    <color name="typeDragon">#6F35FC</color>
+    <color name="typeDark">#705746</color>
+    <color name="typeSteel">#B7B7CE</color>
+    <color name="typeFairy">#D685AD</color>
+    <color name="typeUnknown">#6f6f6f</color>
+    <color name="typeShadow">#171717</color>
 
 </resources>

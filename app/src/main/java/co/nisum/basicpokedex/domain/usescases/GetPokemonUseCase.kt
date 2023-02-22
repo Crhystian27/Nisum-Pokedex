@@ -6,14 +6,14 @@ import co.nisum.basicpokedex.presentation.models.PokemonPresentation
 import javax.inject.Inject
 
 class GetPokemonUseCase @Inject constructor(private val repository: IPokedexRepository)
-    :BaseUseCase<GetPokemonUseCase.Params, PokemonPresentation?>(){
+    :BaseUseCase<GetPokemonUseCase.Params, PokemonPresentation>(){
 
     data class Params(
-        val number: String)
+        val name: String)
 
-    override suspend fun execute(params: Params): PokemonPresentation? {
-        TODO("Not yet implemented")
-    }
+    override suspend fun execute(params: Params): PokemonPresentation =
+        repository.getPokemon(params.name)
+
 
 
 }

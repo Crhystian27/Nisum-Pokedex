@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cons_ability"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_stats_pokemon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/img_ability"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="#bbbbbb"
+        app:strokeWidth="1dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp">
+
+
+            <TextView
+                android:id="@+id/hp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Holacomo vas\nHola"
+                android:textAppearance="?attr/textAppearanceBody1"
+                app:layout_constraintEnd_toStartOf="@+id/attack"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/attack"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Holacomo vas\nHola"
+                android:textAppearance="?attr/textAppearanceBody1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/hp"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+                android:id="@+id/defense"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:text="Holacomo vas\nHola"
+                android:textAppearance="?attr/textAppearanceBody1"
+                app:layout_constraintEnd_toStartOf="@+id/specialdefense"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/hp" />
+
+
+            <TextView
+                android:id="@+id/specialdefense"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:text="Holacomo vas\nHola"
+                android:textAppearance="?attr/textAppearanceBody1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/defense"
+                app:layout_constraintTop_toBottomOf="@id/attack" />
+
+            <TextView
+                android:id="@+id/specialattack"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:text="Holacomo vas\nHola"
+                android:textAppearance="?attr/textAppearanceBody1"
+                app:layout_constraintEnd_toStartOf="@+id/speed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/defense" />
+
+
+            <TextView
+                android:id="@+id/speed"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:text="Holacomo vas\nHola"
+                android:textAppearance="?attr/textAppearanceBody1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/specialattack"
+                app:layout_constraintTop_toBottomOf="@+id/specialdefense" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <ImageView
+        android:layout_marginTop="12dp"
+        android:id="@+id/img_ability"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="32dp"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/ic_star_circle"
+        app:layout_constraintBottom_toTopOf="@id/rv_ability"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/card_stats_pokemon" />
+
+    <TextView
+        android:layout_marginTop="12dp"
+        android:id="@+id/title_ability"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="@string/app_name"
+        android:textAppearance="?attr/textAppearanceBody1"
+        app:layout_constraintBottom_toTopOf="@+id/rv_ability"
+        app:layout_constraintStart_toEndOf="@+id/img_ability"
+        app:layout_constraintTop_toBottomOf="@+id/card_stats_pokemon" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_ability"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/img_ability"
+        tools:listitem="@layout/item_moves_abilities_pokemon" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

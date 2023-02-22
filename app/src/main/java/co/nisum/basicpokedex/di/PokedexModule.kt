@@ -6,17 +6,14 @@ import androidx.room.Room
 import co.nisum.basicpokedex.BuildConfig
 import co.nisum.basicpokedex.data.PokedexRepository
 import co.nisum.basicpokedex.data.local.PokedexDataBase
-import co.nisum.basicpokedex.data.local.dao.PokemonDao
+import co.nisum.basicpokedex.data.local.dao.PokemonListDao
 import co.nisum.basicpokedex.data.remote.PokedexApiInterface
-import co.nisum.basicpokedex.data.repository.dataSource.PokemonLocalDataSource
-import co.nisum.basicpokedex.data.repository.dataSource.PokemonRemoteDataSource
 import co.nisum.basicpokedex.data.repository.dataSourceImpl.PokemonLocalDataSourceImpl
 import co.nisum.basicpokedex.data.repository.dataSourceImpl.PokemonRemoteDataSourceImpl
-import co.nisum.basicpokedex.domain.interfaces.IPokedexRepository
+import co.nisum.basicpokedex.domain.usescases.GetAbilitiesInfoUseCase
+import co.nisum.basicpokedex.domain.usescases.GetEncountersUseCase
 import co.nisum.basicpokedex.domain.usescases.GetPokemonListUseCase
 import co.nisum.basicpokedex.domain.usescases.GetPokemonUseCase
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,11 +23,7 @@ import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-
 import retrofit2.converter.gson.GsonConverterFactory
-import java.io.File
-import java.io.IOException
-import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 
@@ -38,6 +31,12 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object PokedexModule {
 
+
+    @Provides
+    @Singleton
+    fun provideGetAbilitiesInfoUseCase(
+        repository: PokedexRepository
+    ) = GetAbilitiesInfoUseCase(repository)
 
     @Provides
     @Singleton
@@ -53,11 +52,13 @@ object PokedexModule {
 
     @Provides
     @Singleton
-    fun providePokemonListDao(db: PokedexDataBase) = db.pokemonListDao
+    fun provideGetEncountersUseCase(
+        repository: PokedexRepository
+    )= GetEncountersUseCase(repository)
 
     @Provides
     @Singleton
-    fun providePokemonDao(db: PokedexDataBase) = db.pokemonDao
+    fun providePokemonListDao(db: PokedexDataBase) = db.pokemonListDao
 
 
     @Provides
@@ -70,7 +71,8 @@ object PokedexModule {
 
     @Provides
     @Singleton
-    fun providePokemonLocalDataSource(pokemonDao: PokemonDao)= PokemonLocalDataSourceImpl(pokemonDao)
+    fun providePokemonLocalDataSource(
+        pokemonListDao: PokemonListDao)= PokemonLocalDataSourceImpl(pokemonListDao)
 
     @Provides
     @Singleton
@@ -80,11 +82,10 @@ object PokedexModule {
     @Provides
     @Singleton
     fun providePokedexRepository(
+        @ApplicationContext context: Context,
         pokemonLocalDataSource: PokemonLocalDataSourceImpl,
         pokemonRemoteDataSource: PokemonRemoteDataSourceImpl
-    ) = PokedexRepository(pokemonLocalDataSource,pokemonRemoteDataSource)
-
-
+    ) = PokedexRepository(context,pokemonLocalDataSource,pokemonRemoteDataSource)
 
 
     @Singleton

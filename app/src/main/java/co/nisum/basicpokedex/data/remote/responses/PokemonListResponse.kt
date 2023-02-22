@@ -5,8 +5,12 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class PokemonListResponse(
-    val count: Int,
-    val previous: String,
     val next: String,
-    val results: List<Results>
+    val results: List<ResultsResponse>
+): Parcelable
+
+@Parcelize
+data class ResultsResponse(
+    val name: String,
+    val url: String
 ):Parcelable

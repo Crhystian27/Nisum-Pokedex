@@ -1,23 +1,23 @@
 package co.nisum.basicpokedex.utils
 
-import android.util.Log
+import timber.log.Timber
 
 fun String.LogWarning() {
-    Log.w("Warning: 🚫🚫🚫🚫🚫🚫", this)
+    Timber.tag("Warning: 🚫🚫🚫🚫🚫🚫").w(this)
 }
 
 fun String.LogDebug() {
-    Log.d("Debug: 😎😎😎😎😎😎", this)
+    Timber.tag("Debug: 😎😎😎😎😎😎").d( this)
 }
 
 fun String.LogVerbose() {
-    Log.v("Verbose: 👀👀👀👀👀👀", this)
+    Timber.tag("Verbose: 👀👀👀👀👀👀").v(this)
 }
 
 fun String.LogInfo() {
-    Log.i("Info: 😋😋😋😋😋😋", this)
+    Timber.tag("Info: 😋😋😋😋😋😋").i(this)
 }
 
 fun String.LogError() {
-    Log.e("Error: ❌❌❌❌❌❌", this)
+    Timber.tag("Error: ❌❌❌❌❌❌").e(this)
 }
