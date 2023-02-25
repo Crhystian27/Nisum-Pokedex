@@ -1,33 +1,23 @@
-package co.nisum.basicpokedex.presentation.pokemon_list.adapter
-
+package co.nisum.basicpokedex.presentation.pokemon.adapter
 
 import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import co.nisum.basicpokedex.BuildConfig
-
 import co.nisum.basicpokedex.base.BaseAdapter
 import co.nisum.basicpokedex.base.BaseViewHolder
+import co.nisum.basicpokedex.data.remote.responses.Species
 import co.nisum.basicpokedex.databinding.ItemPokemonBinding
-import co.nisum.basicpokedex.presentation.models.PokemonListPresentation
 import co.nisum.basicpokedex.presentation.models.equals
 import co.nisum.basicpokedex.utils.extractNumberFromUrl
 import co.nisum.basicpokedex.utils.loadImage
 import co.nisum.basicpokedex.utils.toCapitalize
 
-
-class PokemonListAdapter(private val listener: PokemonClick) :
-    BaseAdapter<PokemonListPresentation, PokemonListAdapter.PokemonViewHolder>(
-        diffCallBack
-    ) {
-
-
-    override fun onBindViewHolder(holder: PokemonViewHolder, position: Int) {
-        super.onBindViewHolder(holder, position)
-        holder.itemView.layout(0, 0, 0, 0)
-    }
-
+class PokemonEvolutionAdapter:
+BaseAdapter<Species,PokemonEvolutionAdapter.PokemonViewHolder>(
+    diffCallBack
+){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         PokemonViewHolder(
@@ -39,10 +29,11 @@ class PokemonListAdapter(private val listener: PokemonClick) :
         )
 
 
+
     inner class PokemonViewHolder(
         private val binding: ItemPokemonBinding
-    ) : BaseViewHolder<PokemonListPresentation>(binding) {
-        override fun bind(data: PokemonListPresentation) {
+    ) : BaseViewHolder<Species>(binding) {
+        override fun bind(data: Species) {
             binding.apply {
 
                 val number = data.url.extractNumberFromUrl()
@@ -54,34 +45,24 @@ class PokemonListAdapter(private val listener: PokemonClick) :
                     view = cardPokemon,
                     orientation = GradientDrawable.Orientation.BOTTOM_TOP,
                     imageUrl = BuildConfig.BASE_URL_IMG + "/${number}.png")
-
-
-                imgPokemon.setOnClickListener {
-                    listener.onClick(number)
-                }
             }
         }
     }
 
-
     companion object {
-        private val diffCallBack = object : DiffUtil.ItemCallback<PokemonListPresentation>() {
+        private val diffCallBack = object : DiffUtil.ItemCallback<Species>() {
             override fun areItemsTheSame(
-                oldItem: PokemonListPresentation,
-                newItem: PokemonListPresentation
+                oldItem: Species,
+                newItem: Species
             ) = equals(oldItem, newItem)
 
             override fun areContentsTheSame(
-                oldItem: PokemonListPresentation,
-                newItem: PokemonListPresentation
+                oldItem: Species,
+                newItem: Species
             ) = oldItem == newItem
         }
     }
 
 
-}
 
-
-interface PokemonClick {
-    fun onClick(number: String)
 }

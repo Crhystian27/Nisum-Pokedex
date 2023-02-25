@@ -2,10 +2,8 @@ package co.nisum.basicpokedex.presentation
 
 import co.nisum.basicpokedex.PokedexEvent
 import co.nisum.basicpokedex.base.BaseViewModel
-import co.nisum.basicpokedex.domain.usescases.GetAbilitiesInfoUseCase
-import co.nisum.basicpokedex.domain.usescases.GetEncountersUseCase
-import co.nisum.basicpokedex.domain.usescases.GetPokemonListUseCase
-import co.nisum.basicpokedex.domain.usescases.GetPokemonUseCase
+import co.nisum.basicpokedex.domain.usescases.*
+
 import co.nisum.basicpokedex.presentation.models.PokemonListPresentation
 import co.nisum.basicpokedex.utils.LogError
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,8 +13,9 @@ import javax.inject.Inject
 class PokedexViewModel @Inject constructor(
     private val getPokemonListUseCase: GetPokemonListUseCase,
     private val getPokemonUseCase: GetPokemonUseCase,
-    private val getEncountersUseCase: GetEncountersUseCase,
-    private val getAbilitiesInfoUseCase: GetAbilitiesInfoUseCase
+    private val getLocationListUseCase: GetLocationListUseCase,
+    private val getAbilitiesInfoUseCase: GetAbilitiesInfoUseCase,
+    private val getEvolutionUseCase: GetEvolutionUseCase
 ) : BaseViewModel<PokedexEvent>() {
 
     private var currentList: List<PokemonListPresentation>  = emptyList()
@@ -37,6 +36,22 @@ class PokedexViewModel @Inject constructor(
         executeUseCase(
             {getPokemonUseCase.execute(GetPokemonUseCase.Params(name))},
             {result -> _event.value = PokedexEvent.PokemonEvent(result)},
+            {error -> "$error".LogError()}
+        )
+    }
+
+    fun getLocation(number: String){
+        executeUseCase(
+            {getLocationListUseCase.execute(GetLocationListUseCase.Params(number))},
+            {result -> _event.value = PokedexEvent.PokemonLocationList(result)},
+            {error -> "$error".LogError()}
+        )
+    }
+
+    fun getEvolution(species: String){
+        executeUseCase(
+            {getEvolutionUseCase.execute(GetEvolutionUseCase.Params(species))},
+            {result -> _event.value = PokedexEvent.PokemonEvolution(result)},
             {error -> "$error".LogError()}
         )
     }

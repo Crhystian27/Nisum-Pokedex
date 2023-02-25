@@ -7,4 +7,6 @@
     <string name="string_stats">Stats</string>
     <string name="string_moves">Moves</string>
     <string name="string_evolution">Evolution</string>
+    <string name="string_location">Location</string>
+    <string name="string_location_empty">Current location not available</string>
 </resources>

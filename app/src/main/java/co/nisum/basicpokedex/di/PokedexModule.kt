@@ -10,10 +10,7 @@ import co.nisum.basicpokedex.data.local.dao.PokemonListDao
 import co.nisum.basicpokedex.data.remote.PokedexApiInterface
 import co.nisum.basicpokedex.data.repository.dataSourceImpl.PokemonLocalDataSourceImpl
 import co.nisum.basicpokedex.data.repository.dataSourceImpl.PokemonRemoteDataSourceImpl
-import co.nisum.basicpokedex.domain.usescases.GetAbilitiesInfoUseCase
-import co.nisum.basicpokedex.domain.usescases.GetEncountersUseCase
-import co.nisum.basicpokedex.domain.usescases.GetPokemonListUseCase
-import co.nisum.basicpokedex.domain.usescases.GetPokemonUseCase
+import co.nisum.basicpokedex.domain.usescases.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -30,6 +27,12 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object PokedexModule {
+
+    @Provides
+    @Singleton
+    fun provideGetEvolutionUseCase(
+        repository: PokedexRepository
+    )= GetEvolutionUseCase(repository)
 
 
     @Provides
@@ -52,9 +55,9 @@ object PokedexModule {
 
     @Provides
     @Singleton
-    fun provideGetEncountersUseCase(
+    fun provideGetLocationUseCase(
         repository: PokedexRepository
-    )= GetEncountersUseCase(repository)
+    )= GetLocationListUseCase(repository)
 
     @Provides
     @Singleton

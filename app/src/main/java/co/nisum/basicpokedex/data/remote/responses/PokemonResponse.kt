@@ -13,6 +13,7 @@ data class PokemonResponse(
     val name: String,
     val stats: List<Stats>,
     val types: List<Types>,
+    val species: Child
     ): Parcelable
 
 @Parcelize

@@ -4,11 +4,11 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class EncountersListResponse(
-    val location_area: LocationArea
+data class SpeciesResponse(
+    val evolution_chain: EvolutionChain
 ): Parcelable
 
 @Parcelize
-data class LocationArea(
-    val name: String
+data class EvolutionChain(
+    val url: String
 ): Parcelable

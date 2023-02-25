@@ -1,10 +1,7 @@
 package co.nisum.basicpokedex.data.remote
 
 import co.nisum.basicpokedex.BuildConfig
-import co.nisum.basicpokedex.data.remote.responses.AbilityResponse
-import co.nisum.basicpokedex.data.remote.responses.EncountersListResponse
-import co.nisum.basicpokedex.data.remote.responses.PokemonListResponse
-import co.nisum.basicpokedex.data.remote.responses.PokemonResponse
+import co.nisum.basicpokedex.data.remote.responses.*
 import retrofit2.http.GET
 import retrofit2.Response
 import retrofit2.http.Path
@@ -28,8 +25,14 @@ interface PokedexApiInterface {
     @GET(BuildConfig.BASE_URL +"${REST}ability/{number}")
     suspend fun getAbilityPokemonInfo(@Path("number") number: String): Response<AbilityResponse>
 
+    @GET(BuildConfig.BASE_URL + "${REST}pokemon-species/{pokemon}")
+    suspend fun getSpeciesPokemon(@Path("pokemon") pokemon: String): Response<SpeciesResponse>
+
+    @GET(BuildConfig.BASE_URL + "${REST}evolution-chain/{number}")
+    suspend fun getEvolutionPokemon(@Path("number") number: String): Response<EvolutionResponse>
+
     @GET(BuildConfig.BASE_URL +"${REST}pokemon/{pokemon}/encounters")
-    suspend fun getPokemonPlaceToFind(@Path("pokemon") pokemon: String): Response<List<EncountersListResponse>>
+    suspend fun getLocationPokemon(@Path("pokemon") pokemon: String): Response<List<LocationResponse>>
 
 
 

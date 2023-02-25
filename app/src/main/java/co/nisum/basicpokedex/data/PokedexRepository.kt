@@ -3,17 +3,15 @@ package co.nisum.basicpokedex.data
 import android.content.Context
 import co.nisum.basicpokedex.data.mappers.toEncountersPresentation
 import co.nisum.basicpokedex.data.mappers.toPresentation
-import co.nisum.basicpokedex.data.remote.responses.EncountersListResponse
 import co.nisum.basicpokedex.data.remote.responses.PokemonListResponse
 import co.nisum.basicpokedex.data.repository.dataSource.PokemonLocalDataSource
 import co.nisum.basicpokedex.data.repository.dataSource.PokemonRemoteDataSource
 
 import co.nisum.basicpokedex.domain.interfaces.IPokedexRepository
-import co.nisum.basicpokedex.presentation.models.AbilityPresentation
-import co.nisum.basicpokedex.presentation.models.EncountersListPresentation
-import co.nisum.basicpokedex.presentation.models.PokemonListPresentation
-import co.nisum.basicpokedex.presentation.models.PokemonPresentation
+import co.nisum.basicpokedex.presentation.models.*
+import co.nisum.basicpokedex.utils.extractNumberFromUrl
 import co.nisum.basicpokedex.utils.isNetworkAvailable
+import co.nisum.basicpokedex.utils.toCapitalize
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.first
 
@@ -40,15 +38,17 @@ class PokedexRepository @Inject constructor(
         responseToObjectResponse(pokemonRemoteDataSource.getRemoteAbilitiesInfo(number)).toPresentation()
 
 
-    override suspend fun getEncountersList(number: String): List<EncountersListPresentation> {
-        return if(isNetworkAvailable(context)){
-            responseToObjectResponse(pokemonRemoteDataSource.getRemoteEncounters(number)).toEncountersPresentation()
-        }
-        else {
-            throw Exception("Body is null")
-        }
+    override suspend fun getLocationList(number: String): List<LocationPresentation> =
+        responseToObjectResponse(pokemonRemoteDataSource.getRemoteLocation(number)).toEncountersPresentation()
 
-    }
+    override suspend fun getEvolution(species: String): EvolutionPresentation =
+       responseToObjectResponse(
+           pokemonRemoteDataSource.getRemoteEvolution(
+               responseToObjectResponse(
+                   pokemonRemoteDataSource.getRemoteSpecies(species))
+                   .evolution_chain.url.extractNumberFromUrl())).toPresentation()
+
+
 
     override suspend fun getPokemon(name: String): PokemonPresentation =
         responseToObjectResponse(pokemonRemoteDataSource.getRemotePokemon(name)).toPresentation()

@@ -94,6 +94,11 @@ fun TabLayout.addTabs(tabs: List<String>) {
     }
 }
 
+fun String.extractNumberFromUrl(): String {
+    val url = this.dropLast(1)
+    return url.substring(url.lastIndexOf('/') + 1)
+}
+
 
 
 fun ImageView.loadImage(

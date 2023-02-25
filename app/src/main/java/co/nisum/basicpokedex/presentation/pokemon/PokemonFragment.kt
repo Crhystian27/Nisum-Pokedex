@@ -12,20 +12,14 @@ import co.nisum.basicpokedex.BuildConfig
 import co.nisum.basicpokedex.PokedexEvent
 import co.nisum.basicpokedex.R
 import co.nisum.basicpokedex.base.BaseFragment
-import co.nisum.basicpokedex.data.remote.responses.Abilities
-import co.nisum.basicpokedex.data.remote.responses.Moves
-import co.nisum.basicpokedex.data.remote.responses.Types
+import co.nisum.basicpokedex.data.remote.responses.*
 import co.nisum.basicpokedex.databinding.FragmentPokemonBinding
 import co.nisum.basicpokedex.presentation.PokedexViewModel
+import co.nisum.basicpokedex.presentation.models.LocationPresentation
 import co.nisum.basicpokedex.presentation.models.PokemonPresentation
-import co.nisum.basicpokedex.presentation.pokemon.adapter.PokemonAbilitiesAdapter
-import co.nisum.basicpokedex.presentation.pokemon.adapter.PokemonMoveAdapter
-import co.nisum.basicpokedex.presentation.pokemon.adapter.PokemonTypeAdapter
-import co.nisum.basicpokedex.utils.addTabs
+import co.nisum.basicpokedex.presentation.pokemon.adapter.*
+import co.nisum.basicpokedex.utils.*
 
-import co.nisum.basicpokedex.utils.isNetworkAvailable
-import co.nisum.basicpokedex.utils.loadImage
-import co.nisum.basicpokedex.utils.toCapitalize
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -60,6 +54,7 @@ class PokemonFragment : BaseFragment<FragmentPokemonBinding, PokedexViewModel>()
             val stats = getString(R.string.string_stats)
             val moves = getString(R.string.string_moves)
             val evolution = getString(R.string.string_evolution)
+            val location = getString(R.string.string_location)
 
             imgPokemonDetail.loadImage(
                 progressPokemonDetail,
@@ -72,6 +67,7 @@ class PokemonFragment : BaseFragment<FragmentPokemonBinding, PokedexViewModel>()
                 listOf(
                     stats,
                     moves,
+                    location,
                     evolution
                 )
             )
@@ -79,16 +75,31 @@ class PokemonFragment : BaseFragment<FragmentPokemonBinding, PokedexViewModel>()
             tlPokemonDetail.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab) {
                     when (tab.text) {
-                        stats -> { binding.abilityLayout.consAbility.visibility = View.VISIBLE
-                        binding.rvMoves.visibility = View.GONE}
-                        moves -> {binding.abilityLayout.consAbility.visibility = View.GONE
-                            binding.rvMoves.visibility = View.VISIBLE}
-                        evolution -> {binding.abilityLayout.consAbility.visibility = View.GONE
-                            binding.rvMoves.visibility = View.GONE}
+                        stats -> {
+                            abilityLayout.consAbility.visibility = View.VISIBLE }
+                        moves -> {
+                            rvMoves.visibility = View.VISIBLE }
+                        location -> {
+                            textLocation.text = getString(R.string.string_location_empty)
+                            constLocation.visibility = View.VISIBLE
+                           }
+                        evolution -> {
+                            rvEvolution.visibility = View.VISIBLE }
                     }
                 }
 
-                override fun onTabUnselected(tab: TabLayout.Tab) {}
+                override fun onTabUnselected(tab: TabLayout.Tab) {
+                    when (tab.text) {
+                        stats -> {
+                            abilityLayout.consAbility.visibility = View.GONE }
+                        moves -> {
+                            rvMoves.visibility = View.GONE }
+                        location -> {
+                            constLocation.visibility = View.GONE }
+                        evolution -> {
+                            rvEvolution.visibility = View.GONE }
+                    }
+                }
                 override fun onTabReselected(tab: TabLayout.Tab) {}
 
             })
@@ -115,7 +126,6 @@ class PokemonFragment : BaseFragment<FragmentPokemonBinding, PokedexViewModel>()
                         false
                     )
                 }
-
 
                 adapter = PokemonTypeAdapter()
             }
@@ -150,6 +160,34 @@ class PokemonFragment : BaseFragment<FragmentPokemonBinding, PokedexViewModel>()
             }
             (adapter as? PokemonMoveAdapter)?.submitList(moves)
         }
+    }
+
+    private fun setLocation(location: List<LocationPresentation>){
+        with(binding.rvLocation){
+            if(adapter == null){
+                layoutManager = LinearLayoutManager(
+                    context,
+                    LinearLayoutManager.VERTICAL,
+                    false
+                )
+                adapter = PokemonLocationAdapter()
+            }
+            (adapter as? PokemonLocationAdapter)?.submitList(location)
+        }
+    }
+
+    private fun setEvolution(species: List<Species>){
+        with(binding.rvEvolution){
+            if(adapter == null){
+                layoutManager = LinearLayoutManager(
+                    context,
+                    LinearLayoutManager.VERTICAL,
+                    false
+                )
+                adapter = PokemonEvolutionAdapter()
+            }
+            (adapter as? PokemonEvolutionAdapter)?.submitList(species)
+        }
 
     }
 
@@ -167,7 +205,8 @@ class PokemonFragment : BaseFragment<FragmentPokemonBinding, PokedexViewModel>()
             setTypeAdapter(pokemon.types)
             setAbilities(pokemon.abilities)
             setMoves(pokemon.moves)
-
+            viewModel.getLocation(pokemon.name)
+            viewModel.getEvolution(pokemon.name)
         }
     }
 
@@ -176,6 +215,21 @@ class PokemonFragment : BaseFragment<FragmentPokemonBinding, PokedexViewModel>()
             when (event) {
                 is PokedexEvent.PokemonEvent -> {
                     setPokemon(event.pokemonPresentation)
+                }
+                is PokedexEvent.PokemonLocationList ->{
+                    if(event.locationPresentation.isNotEmpty()){
+                        setLocation(event.locationPresentation)
+                        binding.constLocationEmpty.visibility = View.GONE
+                    }else {
+                        binding.constLocationEmpty.visibility = View.VISIBLE
+                    }
+                }
+                is PokedexEvent.PokemonEvolution -> {
+                    val chain = event.evolutionPresentation.chain
+                    val firstSpecies = chain.species
+                    val secondSpecies = chain.evolves_to.firstOrNull()?.species
+                    val thirdSpecies = chain.evolves_to.firstOrNull()?.evolves_to?.firstOrNull()?.species
+                    setEvolution(listOfNotNull(firstSpecies, secondSpecies, thirdSpecies))
                 }
                 else -> {}
             }
