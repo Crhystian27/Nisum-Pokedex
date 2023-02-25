@@ -1,14 +1,15 @@
-name: Pokemon CI
+name: Pokedex CI
 
 on:
   push:
-    branches: ["CI/CD"]
+    branches: [ "CI/CD" ]
   pull_request:
-    branches: ["CI/CD"]
+    branches: [ "CI/CD" ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
 
     steps:
       - uses: actions/checkout@v3
