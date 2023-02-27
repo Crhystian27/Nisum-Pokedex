@@ -8,7 +8,6 @@ import co.nisum.basicpokedex.presentation.models.*
 interface IPokedexRepository {
 
     suspend fun getPokemonList(limit: String, offset: String): List<PokemonListPresentation>
-    suspend fun getAbilitiesInfo(number: String): AbilityPresentation
     suspend fun getLocationList(number: String): List<LocationPresentation>
     suspend fun getEvolution(species: String): EvolutionPresentation
     suspend fun getPokemon(name: String): PokemonPresentation

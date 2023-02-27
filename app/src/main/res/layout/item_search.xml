@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.textfield.TextInputLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ti_search_pokemon"
+    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:backgroundTint="@color/white"
+    android:hint="@string/hint_search"
+    app:boxCornerRadiusBottomEnd="20dp"
+    app:boxCornerRadiusBottomStart="20dp"
+    app:boxCornerRadiusTopEnd="20dp"
+    app:boxCornerRadiusTopStart="20dp">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/tiet_search_pokemon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:imeOptions="actionDone"
+        android:maxLines="1"
+        android:textColor="@color/black"
+        android:textColorHint="@color/grey" />
+</com.google.android.material.textfield.TextInputLayout>

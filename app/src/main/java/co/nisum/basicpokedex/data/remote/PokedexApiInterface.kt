@@ -22,9 +22,6 @@ interface PokedexApiInterface {
     @GET(BuildConfig.BASE_URL +"${REST}pokemon/{pokemon}")
     suspend fun getPokemon(@Path("pokemon") pokemon: String): Response<PokemonResponse>
 
-    @GET(BuildConfig.BASE_URL +"${REST}ability/{number}")
-    suspend fun getAbilityPokemonInfo(@Path("number") number: String): Response<AbilityResponse>
-
     @GET(BuildConfig.BASE_URL + "${REST}pokemon-species/{pokemon}")
     suspend fun getSpeciesPokemon(@Path("pokemon") pokemon: String): Response<SpeciesResponse>
 

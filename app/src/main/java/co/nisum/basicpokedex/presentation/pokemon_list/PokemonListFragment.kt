@@ -1,19 +1,15 @@
 package co.nisum.basicpokedex.presentation.pokemon_list
 
-import android.net.Uri
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AbsListView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import co.nisum.basicpokedex.PokedexEvent
 import co.nisum.basicpokedex.R
 import co.nisum.basicpokedex.base.BaseActivity
@@ -24,28 +20,27 @@ import co.nisum.basicpokedex.presentation.models.PokemonListPresentation
 import co.nisum.basicpokedex.presentation.pokemon_list.adapter.PokemonClick
 import co.nisum.basicpokedex.presentation.pokemon_list.adapter.PokemonListAdapter
 
-import co.nisum.basicpokedex.utils.isNetworkAvailable
-import co.nisum.basicpokedex.utils.load
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class PokemonListFragment : BaseFragment<FragmentPokemonListBinding, PokedexViewModel>(), PokemonClick {
+class PokemonListFragment : BaseFragment<FragmentPokemonListBinding, PokedexViewModel>(),
+    PokemonClick {
 
     override val viewModel: PokedexViewModel by viewModels()
 
     private var pressedTime: Long = 0
 
-    private var isScrolling = false
+    //private var isScrolling = false
 
     override fun inflateView(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ) = FragmentPokemonListBinding.inflate(inflater,container,false)
+    ) = FragmentPokemonListBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getPokemonList("151","0")
+        viewModel.getPokemonList("1008", "0")
     }
 
     override fun setUI() {
@@ -56,22 +51,22 @@ class PokemonListFragment : BaseFragment<FragmentPokemonListBinding, PokedexView
     }
 
 
-    private fun setAdapter(results: List<PokemonListPresentation>){
-        with(binding.rvPokemon){
-            if(adapter == null){
+    private fun setAdapter(results: List<PokemonListPresentation>) {
+        with(binding.rvPokemon) {
+            if (adapter == null) {
                 layoutManager = GridLayoutManager(
                     context,
-                2,
+                    2,
                 )
 
                 adapter = PokemonListAdapter(this@PokemonListFragment)
-                addOnScrollListener(this@PokemonListFragment.onScrollListener)
+                //addOnScrollListener(this@PokemonListFragment.onScrollListener)
             }
             (adapter as? PokemonListAdapter)?.submitList(results)
         }
     }
 
-    private val onScrollListener = object: RecyclerView.OnScrollListener(){
+    /*private val onScrollListener = object: RecyclerView.OnScrollListener(){
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
             super.onScrollStateChanged(recyclerView, newState)
             if(newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL){
@@ -101,12 +96,12 @@ class PokemonListFragment : BaseFragment<FragmentPokemonListBinding, PokedexView
 
             }
         }
-    }
+    }*/
 
     override fun observe() {
-        viewModel.event.observe(viewLifecycleOwner){event ->
-            when(event){
-                is PokedexEvent.PokemonListEvent ->{
+        viewModel.event.observe(viewLifecycleOwner) { event ->
+            when (event) {
+                is PokedexEvent.PokemonListEvent -> {
 
                     setAdapter(event.pokemonListPresentation)
                 }
@@ -119,24 +114,15 @@ class PokemonListFragment : BaseFragment<FragmentPokemonListBinding, PokedexView
     override fun setListeners() {
 
         binding.apply {
-            var delete = false
-            tietSearchPokemon.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    delete = before > count
-                }
-
-                override fun afterTextChanged(s: Editable?) {
-                    if(delete)
-                        viewModel.searchInPokemonList(s?.toString(), emptyList())
-                    else
-                        viewModel.searchInPokemonList(s?.toString(),
-                            (rvPokemon.adapter as? PokemonListAdapter)?.currentList
-                        )
-                }
-
-            })
+            searchPokemonList.tietSearchPokemon.doOnTextChanged { text, _, _, _ ->
+                if (text.isNullOrEmpty())
+                    viewModel.searchInPokemonList(text.toString(), emptyList())
+                else
+                    viewModel.searchInPokemonList(
+                        text.toString(),
+                        (rvPokemon.adapter as? PokemonListAdapter)?.currentList)
+            }
         }
 
         handleBack()
@@ -148,10 +134,14 @@ class PokemonListFragment : BaseFragment<FragmentPokemonListBinding, PokedexView
             this,
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    if(pressedTime+ 2000 > System.currentTimeMillis()){
+                    if (pressedTime + 2000 > System.currentTimeMillis()) {
                         requireActivity().finish()
-                    }else {
-                        Toast.makeText(context, getString(R.string.back_pressed), Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(
+                            context,
+                            getString(R.string.back_pressed),
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                     pressedTime = System.currentTimeMillis()
                 }

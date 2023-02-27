@@ -13,7 +13,6 @@ class PokemonRemoteDataSourceImpl @Inject constructor(
     override suspend fun getRemotePokemonList(limit: String, offset: String): Response<PokemonListResponse> =
         pokedexApiInterface.getRemotePokemonList(limit,offset)
 
-
     override suspend fun getRemotePokemon(number: String): Response<PokemonResponse> =
         pokedexApiInterface.getPokemon(number)
 
@@ -25,10 +24,5 @@ class PokemonRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun getRemoteLocation(number: String): Response<List<LocationResponse>> =
         pokedexApiInterface.getLocationPokemon(number)
-
-    override suspend fun getRemoteAbilitiesInfo(number: String): Response<AbilityResponse> =
-        pokedexApiInterface.getAbilityPokemonInfo(number)
-
-
 
 }

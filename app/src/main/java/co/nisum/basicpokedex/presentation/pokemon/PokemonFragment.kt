@@ -27,7 +27,8 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class PokemonFragment : BaseFragment<FragmentPokemonBinding, PokedexViewModel>() {
 
-    var number: String? = ""
+     var number: String? = ""
+
     override val viewModel: PokedexViewModel by viewModels()
 
     override fun inflateView(
@@ -51,10 +52,8 @@ class PokemonFragment : BaseFragment<FragmentPokemonBinding, PokedexViewModel>()
 
     override fun setUI() {
         binding.apply {
-            val stats = getString(R.string.string_stats)
-            val moves = getString(R.string.string_moves)
-            val evolution = getString(R.string.string_evolution)
-            val location = getString(R.string.string_location)
+
+
 
             imgPokemonDetail.loadImage(
                 progressPokemonDetail,
@@ -62,6 +61,18 @@ class PokemonFragment : BaseFragment<FragmentPokemonBinding, PokedexViewModel>()
                 GradientDrawable.Orientation.TOP_BOTTOM,
                 BuildConfig.BASE_URL_IMG + "/${number}.png"
             )
+
+
+        }
+    }
+
+    override fun setListeners() {
+        binding.apply {
+
+            val stats = getString(R.string.string_stats)
+            val moves = getString(R.string.string_moves)
+            val evolution = getString(R.string.string_evolution)
+            val location = getString(R.string.string_location)
 
             tlPokemonDetail.addTabs(
                 listOf(
@@ -72,42 +83,47 @@ class PokemonFragment : BaseFragment<FragmentPokemonBinding, PokedexViewModel>()
                 )
             )
 
+
             tlPokemonDetail.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab) {
                     when (tab.text) {
                         stats -> {
-                            abilityLayout.consAbility.visibility = View.VISIBLE }
+                            abilityLayout.consAbility.visibility = View.VISIBLE
+                        }
                         moves -> {
-                            rvMoves.visibility = View.VISIBLE }
+                            constMoves.visibility = View.VISIBLE
+                        }
                         location -> {
                             textLocation.text = getString(R.string.string_location_empty)
                             constLocation.visibility = View.VISIBLE
-                           }
+                        }
                         evolution -> {
-                            rvEvolution.visibility = View.VISIBLE }
+                            rvEvolution.visibility = View.VISIBLE
+                        }
                     }
                 }
 
                 override fun onTabUnselected(tab: TabLayout.Tab) {
                     when (tab.text) {
                         stats -> {
-                            abilityLayout.consAbility.visibility = View.GONE }
+                            abilityLayout.consAbility.visibility = View.GONE
+                        }
                         moves -> {
-                            rvMoves.visibility = View.GONE }
+                            constMoves.visibility = View.GONE
+                        }
                         location -> {
-                            constLocation.visibility = View.GONE }
+                            constLocation.visibility = View.GONE
+                        }
                         evolution -> {
-                            rvEvolution.visibility = View.GONE }
+                            rvEvolution.visibility = View.GONE
+                        }
                     }
                 }
+
                 override fun onTabReselected(tab: TabLayout.Tab) {}
 
             })
         }
-    }
-
-    override fun setListeners() {
-
     }
 
     private fun setTypeAdapter(types: List<Types>) {

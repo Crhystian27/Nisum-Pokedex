@@ -11,7 +11,6 @@ import co.nisum.basicpokedex.domain.interfaces.IPokedexRepository
 import co.nisum.basicpokedex.presentation.models.*
 import co.nisum.basicpokedex.utils.extractNumberFromUrl
 import co.nisum.basicpokedex.utils.isNetworkAvailable
-import co.nisum.basicpokedex.utils.toCapitalize
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.first
 
@@ -25,7 +24,6 @@ class PokedexRepository @Inject constructor(
 ) : IPokedexRepository {
 
 
-
     override suspend fun getPokemonList(limit: String, offset: String): List<PokemonListPresentation> {
         return if (isNetworkAvailable(context)) {
             saveLocalPokemonList(responseToObjectResponse(pokemonRemoteDataSource.getRemotePokemonList(limit, offset)))
@@ -33,10 +31,6 @@ class PokedexRepository @Inject constructor(
             pokemonLocalDataSource.getPokemonListDB().first().toPresentation()
         }
     }
-
-    override suspend fun getAbilitiesInfo(number: String): AbilityPresentation =
-        responseToObjectResponse(pokemonRemoteDataSource.getRemoteAbilitiesInfo(number)).toPresentation()
-
 
     override suspend fun getLocationList(number: String): List<LocationPresentation> =
         responseToObjectResponse(pokemonRemoteDataSource.getRemoteLocation(number)).toEncountersPresentation()

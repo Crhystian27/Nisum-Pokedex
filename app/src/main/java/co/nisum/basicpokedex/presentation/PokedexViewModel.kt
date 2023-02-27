@@ -6,6 +6,7 @@ import co.nisum.basicpokedex.domain.usescases.*
 
 import co.nisum.basicpokedex.presentation.models.PokemonListPresentation
 import co.nisum.basicpokedex.utils.LogError
+import co.nisum.basicpokedex.utils.extractNumberFromUrl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -14,7 +15,6 @@ class PokedexViewModel @Inject constructor(
     private val getPokemonListUseCase: GetPokemonListUseCase,
     private val getPokemonUseCase: GetPokemonUseCase,
     private val getLocationListUseCase: GetLocationListUseCase,
-    private val getAbilitiesInfoUseCase: GetAbilitiesInfoUseCase,
     private val getEvolutionUseCase: GetEvolutionUseCase
 ) : BaseViewModel<PokedexEvent>() {
 
@@ -57,14 +57,6 @@ class PokedexViewModel @Inject constructor(
     }
 
 
-    fun getAbilitiesInfo(number: String){
-        executeUseCase(
-            {getAbilitiesInfoUseCase.execute(GetAbilitiesInfoUseCase.Params(number))},
-            {result -> _event.value = PokedexEvent.PokemonEventAbilities(result)},
-            {error -> "$error".LogError()}
-        )
-    }
-
 
     fun searchInPokemonList(searchText: String?,filterList: List<PokemonListPresentation>?){
         if(searchText.isNullOrEmpty()){
@@ -75,7 +67,7 @@ class PokedexViewModel @Inject constructor(
             searchText.lowercase().also { search ->
                 _event.value = PokedexEvent.PokemonListEvent(
                     pokemon.filter {
-                        it.name.lowercase().contains(search)
+                        it.name.lowercase().contains(search) || it.url.extractNumberFromUrl().lowercase().contains(search)
                     }
                 )
             }

@@ -10,6 +10,5 @@ interface PokemonRemoteDataSource {
     suspend fun getRemoteSpecies(species: String): Response<SpeciesResponse>
     suspend fun getRemoteEvolution(number: String): Response<EvolutionResponse>
     suspend fun getRemoteLocation(number: String): Response<List<LocationResponse>>
-    suspend fun getRemoteAbilitiesInfo(number: String): Response<AbilityResponse>
 
 }

@@ -34,13 +34,6 @@ object PokedexModule {
         repository: PokedexRepository
     )= GetEvolutionUseCase(repository)
 
-
-    @Provides
-    @Singleton
-    fun provideGetAbilitiesInfoUseCase(
-        repository: PokedexRepository
-    ) = GetAbilitiesInfoUseCase(repository)
-
     @Provides
     @Singleton
     fun provideGetPokemonListUseCase(
