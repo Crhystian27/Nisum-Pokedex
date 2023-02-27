@@ -7,8 +7,8 @@ Se consume la [Poké API](https://pokeapi.co/) para crear un "Pokedex"
 
 | | | |
 |:-------------------------:|:-------------------------:|:-------------------------:|
-|<img alt="Screen 1" src="https://github.com/Crhystian27/Nisum-Pokedex/tree/master/screenshots/1.png"> | <img alt="Screen 2" src="https://github.com/Crhystian27/Nisum-Pokedex/tree/master/screenshots/2.png"> | <img alt="Screen 3" src="https://github.com/Crhystian27/Nisum-Pokedex/tree/master/screenshots/3.png"> |
-|<img alt="Screen 4" src="https://github.com/Crhystian27/Nisum-Pokedex/tree/master/screenshots/4.png">  |  <img alt="Screen 5" src="https://github.com/Crhystian27/Nisum-Pokedex/tree/master/screenshots/5.png">|<img alt="Screen 6" src="https://github.com/Crhystian27/Nisum-Pokedex/tree/master/screenshots/6.png">|
+|<img alt="Screen 1" src="https://github.com/Crhystian27/Nisum-Pokedex/blob/master/screenshots/1.png"> | <img alt="Screen 2" src="https://github.com/Crhystian27/Nisum-Pokedex/blob/master/screenshots/2.png"> | <img alt="Screen 3" src="https://github.com/Crhystian27/Nisum-Pokedex/blob/master/screenshots/3.png"> |
+|<img alt="Screen 4" src="https://github.com/Crhystian27/Nisum-Pokedex/blob/master/screenshots/4.png">  |  <img alt="Screen 5" src="https://github.com/Crhystian27/Nisum-Pokedex/blob/master/screenshots/5.png">|<img alt="Screen 6" src="https://github.com/Crhystian27/Nisum-Pokedex/blob/master/screenshots/6.png">|
 
 
 ## Urls Usadas
