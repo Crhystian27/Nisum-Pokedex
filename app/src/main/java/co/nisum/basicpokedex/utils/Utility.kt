@@ -20,7 +20,6 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.CustomViewTarget
 import com.bumptech.glide.request.transition.Transition
-import com.google.android.material.card.MaterialCardView
 import com.google.android.material.tabs.TabLayout
 import java.util.*
 
